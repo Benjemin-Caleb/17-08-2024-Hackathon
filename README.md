@@ -1,11 +1,8 @@
-**--IMAGES ARE BELOW--**
-
-
-****Overview****
+****--Overview--****
 This project implements an advanced Waste Management System using Python, focusing on electronic devices (E-devices). The system tracks the lifespan of electronic items, determines when they are due for replacement, and calculates a sustainability score to promote responsible e-waste management.
 
 
-****Features****
+**--Features--**
 
 **User Authentication:**
 Users can create accounts and log in with their credentials.
@@ -22,7 +19,7 @@ All user and device data is automatically saved in JSON format, enabling persist
 The system ensures that the data provided is securely stored and can be accessed or modified in future sessions.
 
 
-****Technologies Used****
+****Technologies Used:****
 Programming Language: Python
 Data Storage: JSON
 

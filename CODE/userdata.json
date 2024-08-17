@@ -1,0 +1,3 @@
+{"Benjemin": {"username": "Benjemin", "devices": [{"name": "Cooker", "category": "Electric", "purchase_date": "2024-11-01", "lifespan_years": 5, "history": []}, {"name": "Grinder", "category": "Electric", "purchase_date": "2020-08-01", "lifespan_years": 3, "history": []}]},
+ "Caleb": {"username": "Caleb", "devices": [{"name": "Mixer", "category": "Electric", "purchase_date": "2020-01-01", "lifespan_years": 2, "history": []}]}, 
+ "Sudheer": {"username": "Sudheer", "devices": [{"name": "Grinder", "category": "Electric", "purchase_date": "2020-09-01", "lifespan_years": 5, "history": []}]}}

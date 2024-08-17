@@ -1,4 +1,6 @@
 import datetime
+import json
+import os
 
 class EDevice:
     def __init__(self, name, category, purchase_date, lifespan_years):
@@ -24,6 +26,26 @@ class EDevice:
         for event in self.history:
             print(event)
 
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "category": self.category,
+            "purchase_date": self.purchase_date.strftime('%Y-%m-%d'),
+            "lifespan_years": self.lifespan_years,
+            "history": self.history,
+        }
+
+    @staticmethod
+    def from_dict(data):
+        device = EDevice(
+            name=data['name'],
+            category=data['category'],
+            purchase_date=datetime.datetime.strptime(data['purchase_date'], '%Y-%m-%d'),
+            lifespan_years=data['lifespan_years']
+        )
+        device.history = data['history']
+        return device
+
 class User:
     def __init__(self, username):
         self.username = username
@@ -41,9 +63,13 @@ class User:
 
     def check_replacements(self, current_date):
         print(f"\nDevices due for replacement for user {self.username}:")
+        replacements_due = False  # Flag to check if any device is due for replacement
         for device in self.devices:
             if device.is_due_for_replacement(current_date):
                 print(f"{device.name} ({device.category}) - Purchased on {device.purchase_date} - Consider recycling.")
+                replacements_due = True
+        if not replacements_due:
+            print("No devices for replacement.")
 
     def generate_report(self, current_date):
         print(f"\n--- E-waste Report for {self.username} ---")
@@ -55,8 +81,31 @@ class User:
         print(f"Sustainability score: {sustainability_score:.2f}%")
         print("----------------------------------")
 
+    def to_dict(self):
+        return {
+            "username": self.username,
+            "devices": [device.to_dict() for device in self.devices],
+        }
+
+    @staticmethod
+    def from_dict(data):
+        user = User(data['username'])
+        user.devices = [EDevice.from_dict(device) for device in data['devices']]
+        return user
+
+def save_data(users, filename='userdata.json'):
+    with open(filename, 'w') as file:
+        json.dump({username: user.to_dict() for username, user in users.items()}, file)
+
+def load_data(filename='userdata.json'):
+    if not os.path.exists(filename):
+        return {}
+    with open(filename, 'r') as file:
+        users_data = json.load(file)
+        return {username: User.from_dict(data) for username, data in users_data.items()}
+
 def main():
-    users = {}
+    users = load_data()
 
     while True:
         print("\n--- Advanced E-waste Monitoring System ---")
@@ -73,6 +122,7 @@ def main():
             else:
                 users[username] = User(username)
                 print(f"User {username} has been created.")
+                save_data(users)
 
         elif choice == '2':
             username = input("Enter username: ")
@@ -98,6 +148,7 @@ def main():
                         lifespan_years = int(input("Enter expected lifespan (years): "))
                         device = EDevice(name, category, purchase_date, lifespan_years)
                         current_user.add_device(device)
+                        save_data(users)
 
                     elif user_choice == '2':
                         current_user.list_devices()
@@ -127,6 +178,7 @@ def main():
 
         elif choice == '3':
             print("Exiting the system.")
+            save_data(users)
             break
 
         else:

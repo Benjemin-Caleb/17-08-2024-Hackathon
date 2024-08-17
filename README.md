@@ -1,3 +1,6 @@
+**IMAGES ARE BELOW**
+
+
 ****Overview****
 This project implements an advanced Waste Management System using Python, focusing on electronic devices (E-devices). The system tracks the lifespan of electronic items, determines when they are due for replacement, and calculates a sustainability score to promote responsible e-waste management.
 

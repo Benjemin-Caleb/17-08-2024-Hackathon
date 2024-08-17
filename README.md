@@ -19,7 +19,7 @@ All user and device data is automatically saved in JSON format, enabling persist
 The system ensures that the data provided is securely stored and can be accessed or modified in future sessions.
 
 
-****Technologies Used:****
-            Programming Language: Python               
+****Technologies Used:****                                                                                    
+Programming Language: Python               
 Data Storage: JSON
 
